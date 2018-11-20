@@ -37,6 +37,9 @@
     }
   },
   "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/node": "^10.12.9",
+    "@types/winreg": "^1.2.30",
     "eslint": "^5.9.0",
     "eslint-config-io": "^0.0.7",
     "standard-version": "^4.4.0",
@@ -44,6 +47,9 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "regedit": "^3.0.2"
+    "change-case": "^3.0.2",
+    "fs-extra": "^7.0.1",
+    "iconv-lite": "^0.4.24",
+    "winreg": "^1.2.4"
   }
 }

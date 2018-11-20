@@ -3,11 +3,12 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "es5",
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
     "removeComments": false,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./lib",
     "lib": ["esnext", "dom"]
   },
