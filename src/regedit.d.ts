@@ -11,7 +11,7 @@ declare module 'regedit' {
           }
         }
       ) => any
-    ): void
+    ): void,
   }
   export = regedit
 }

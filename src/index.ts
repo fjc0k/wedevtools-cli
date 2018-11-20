@@ -14,7 +14,7 @@ const getRegValue = (path: string): Promise<any> => {
 
 Promise.all([
   'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\微信web开发者工具',
-  'HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\微信web开发者工具'
+  'HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\微信web开发者工具',
 ].map(getRegValue)).then(values => {
   const value = values.filter(value => !!value)[0]
   console.log('====>', value.UninstallString.value)
