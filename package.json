@@ -50,6 +50,7 @@
     "change-case": "^3.0.2",
     "fs-extra": "^7.0.1",
     "iconv-lite": "^0.4.24",
+    "tmp-promise": "^1.0.5",
     "winreg": "^1.2.4"
   }
 }

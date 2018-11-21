@@ -49,10 +49,20 @@ export interface InvokeData {
   },
 }
 
-export default function invoke<T extends keyof InvokeData>(options: { type: T, data: InvokeData[T] }): any {
-  findCli()
+export default function invoke<T extends keyof InvokeData>(options: { type: T, data: InvokeData[T] }): Promise<any> {
+  return findCli()
     .then(cli => {
       const value = (options.data as any).projectRoot
+      console.log([
+        `"${cli}"`,
+        `--${paramCase(options.type)}${value ? ` "${value}"` : ''}`,
+        ...Object.keys(options.data).reduce((res, key) => {
+          if (key !== 'projectRoot') {
+            res.push(`--${paramCase(key)} "${(options.data as any)[key]}"`)
+          }
+          return res
+        }, []),
+      ].join(' '))
       execSync([
         `"${cli}"`,
         `--${paramCase(options.type)}${value ? ` "${value}"` : ''}`,
@@ -68,10 +78,3 @@ export default function invoke<T extends keyof InvokeData>(options: { type: T, d
       throw e
     })
 }
-
-invoke({
-  type: 'open',
-  data: {
-    projectRoot: '',
-  },
-})
