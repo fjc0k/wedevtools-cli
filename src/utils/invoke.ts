@@ -6,7 +6,7 @@ export interface InvokeData {
   /** 启动 */
   open: {
     /** 要打开的项目的绝对路径 */
-    '': string,
+    projectRoot: string,
   },
   /** 登录 */
   login: {
@@ -18,7 +18,7 @@ export interface InvokeData {
   /** 预览 */
   preview: {
     /** 项目根路径 */
-    '': string,
+    projectRoot: string,
     /** 格式：[format[@path]]，指定二维码输出形式，format 可选值包括 terminal（命令行输出）, base64, image。如果有填 path，表示结果输出到指定路径的文件中。如果没填 path，表示将结果输出到命令行。不使用此选项或使用了但没有填 format 的话则默认为命令行打印 */
     previewQrOutput: string,
     /** 指定后，会将本次预览的额外信息以 json 格式输出至指定路径，如代码包大小、分包大小信息 */
@@ -29,7 +29,7 @@ export interface InvokeData {
   /** 上传 */
   upload: {
     /** 格式：version@project_root。version 指定版本号，project_root 指定项目根路径 */
-    '': string,
+    projectRoot: string,
     /** 上传代码时的备注 */
     uploadDesc: string,
     /** 指定后，会将本次上传的额外信息以 json 格式输出至指定路径，如代码包大小、分包大小信息 */
@@ -38,26 +38,26 @@ export interface InvokeData {
   /** 构建 npm */
   buildNpm: {
     /** 项目根目录 */
-    '': string,
+    projectRoot: string,
     /** 手动指定编译类型，用于指定走 miniprogramRoot 还是 pluginRoot，优先级比 project.config.json 中的高 */
     buildNpmCompileType: 'miniprogram' | 'plugin',
   },
   /** 自动化测试 */
   test: {
     /** 项目根目录 */
-    '': string,
+    projectRoot: string,
   },
 }
 
 export default function invoke<T extends keyof InvokeData>(options: { type: T, data: InvokeData[T] }): any {
   findCli()
     .then(cli => {
-      const value = (options.data as any)['']
+      const value = (options.data as any).projectRoot
       execSync([
         `"${cli}"`,
         `--${paramCase(options.type)}${value ? ` "${value}"` : ''}`,
         ...Object.keys(options.data).reduce((res, key) => {
-          if (key !== '') {
+          if (key !== 'projectRoot') {
             res.push(`--${paramCase(key)} "${(options.data as any)[key]}"`)
           }
           return res
@@ -72,6 +72,6 @@ export default function invoke<T extends keyof InvokeData>(options: { type: T, d
 invoke({
   type: 'open',
   data: {
-    '': '',
+    projectRoot: '',
   },
 })
