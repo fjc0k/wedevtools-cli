@@ -1,8 +1,8 @@
-import { execSync } from 'child_process'
 import fs from 'fs-extra'
 import Registry from 'winreg'
+import { execSync } from 'child_process'
 
-export default function findCli(): Promise<string> {
+export function findCliPath(): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     switch (process.platform) {
       case 'win32':
@@ -10,14 +10,13 @@ export default function findCli(): Promise<string> {
         new Registry({
           hive: Registry.HKLM,
           key: '\\SOFTWARE\\Wow6432Node\\Tencent\\微信web开发者工具',
+        }).values((err, items) => {
+          if (!err && items && items[0] && items[0].value) {
+            resolve(items[0].value)
+          } else {
+            reject(new Error('请先安装微信web开发者工具。'))
+          }
         })
-          .values((err, items) => {
-            if (!err && items && items[0] && items[0].value) {
-              resolve(items[0].value)
-            } else {
-              reject(new Error('请先安装微信web开发者工具。'))
-            }
-          })
         break
       case 'darwin':
         resolve('/Applications/wechatwebdevtools.app/Contents/Resources/app.nw/bin/cli')
@@ -26,10 +25,10 @@ export default function findCli(): Promise<string> {
         reject(new Error('当前环境不支持本工具。'))
         break
     }
-  }).then(cli => {
-    if (!fs.existsSync(cli)) {
+  }).then(cliPath => {
+    if (!fs.existsSync(cliPath)) {
       return Promise.reject(new Error('请先安装微信web开发者工具。'))
     }
-    return Promise.resolve(cli)
+    return Promise.resolve(cliPath)
   })
 }

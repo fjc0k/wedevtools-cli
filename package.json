@@ -17,6 +17,9 @@
   "files": [
     "lib"
   ],
+  "bin": {
+    "wedevtools": "lib/cli.js"
+  },
   "author": {
     "name": "Jay Fong",
     "email": "fjc0kb@gmail.com",
@@ -26,31 +29,30 @@
     "root": true,
     "extends": "io"
   },
+  "eslintIgnore": [
+    "lib"
+  ],
   "scripts": {
-    "build": "tsc src",
-    "release": "standard-version -a",
-    "postrelease": "git push --follow-tags origin master && npm publish"
-  },
-  "standard-version": {
-    "scripts": {
-      "postbump": "yarn build && git add -A"
-    }
+    "build": "tsc",
+    "release": "standard-version -a && git push --follow-tags origin master && yarn build && npm publish"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^10.12.9",
     "@types/winreg": "^1.2.30",
     "eslint": "^5.9.0",
-    "eslint-config-io": "^0.0.7",
+    "eslint-config-io": "^0.5.0",
     "standard-version": "^4.4.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },
   "dependencies": {
     "change-case": "^3.0.2",
+    "commander": "^2.19.0",
+    "consola": "^2.5.8",
     "fs-extra": "^7.0.1",
-    "iconv-lite": "^0.4.24",
     "tmp-promise": "^1.0.5",
+    "vtils": "^0.85.0",
     "winreg": "^1.2.4"
   }
 }

@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "strictNullChecks": false,
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
@@ -10,12 +9,14 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "./lib",
-    "lib": ["esnext", "dom"]
+    "newLine": "LF",
+    "skipLibCheck": true,
+    "lib": ["esnext"],
   },
   "include": [
     "src"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

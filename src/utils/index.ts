@@ -1,2 +1,4 @@
-export { default as findCli } from './findCli'
-export { default as invoke } from './invoke'
+// @index('./*', (pp, cc) => `export * from '${pp.path}'`)
+export * from './findCliPath'
+export * from './invoke'
+export * from './readPackageJson'
